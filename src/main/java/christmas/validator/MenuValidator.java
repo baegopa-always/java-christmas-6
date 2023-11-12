@@ -70,5 +70,14 @@ public class MenuValidator {
         }
     }
 
+    private static void checkTotalEA() {
+        int count = menuInventory
+                .values()
+                .stream()
+                .mapToInt(Integer::intValue)
+                .sum();
+        checkEA(count);
+    }
+
     }
 }
