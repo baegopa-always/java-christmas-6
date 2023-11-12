@@ -54,6 +54,11 @@ public class MenuValidator {
         }
     }
 
+    private static void checkDuplicated(List<String> splitedMenu) {
+        if (menuInventory.size() != splitedMenu.size()) {
+            throw new IllegalArgumentException("중복된 메뉴 존재");
+        }
+    }
 
     private static Menu checkMenuExistence(String menuName) {
         for (Menu menu : Menu.values()) {
