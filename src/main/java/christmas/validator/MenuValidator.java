@@ -64,5 +64,11 @@ public class MenuValidator {
         throw new IllegalArgumentException("존재하지 않는 메뉴");
     }
 
+    private static void checkEA(int menuEA) {
+        if (menuEA < MIN_EA || menuEA > MAX_EA) {
+            throw new IllegalArgumentException("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
+        }
+    }
+
     }
 }
