@@ -55,5 +55,14 @@ public class MenuValidator {
     }
 
 
+    private static Menu checkMenuExistence(String menuName) {
+        for (Menu menu : Menu.values()) {
+            if (menu.getName().equals(menuName)) {
+                return menu;
+            }
+        }
+        throw new IllegalArgumentException("존재하지 않는 메뉴");
+    }
+
     }
 }
