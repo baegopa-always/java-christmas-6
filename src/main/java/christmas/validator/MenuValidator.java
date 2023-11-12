@@ -32,9 +32,10 @@ public class MenuValidator {
         }
     }
 
-    private static void splitByHypen(List<String> splitedMenu) {
+    private static void parseMenu(List<String> splitedMenu) {
         for (String menu : splitedMenu) {
-            menu.split("-");
+            List<String> menuInfo = splitByHypen(menu);
+            makeMenuInventory(menuInfo);
         }
 
     }
