@@ -1,24 +1,27 @@
 package christmas.validator;
 
-import java.util.HashMap;
+import christmas.domain.constants.Menu;
+
+import static christmas.domain.constants.Constants.DRINK;
+import static christmas.domain.constants.Constants.MIN_EA;
+import static christmas.domain.constants.Constants.MAX_EA;
+
+import java.util.EnumMap;
 import java.util.List;
 import java.util.Map;
 
 public class MenuValidator {
-    private static Map<String, Integer> menuInventory;
+    private static Map<Menu, Integer> menuInventory;
 
-    public static Map<String, Integer> validate(String input) {
-        menuInventory = new HashMap();
-        List<String> splitedMenu = splitByComma(input); // 쉼표 단위로 구분,, 패턴 ?
-        // 하이픈 단위로 구분
-        // 중복
-        // 있는 메뉴인가
-        // 메뉴의 개수가 1이상 20 이하인가
-        // 전체 메뉴 개수가 20이하 인가
-        // 해시맵으로 리턴
-        // menu들은 enum으로 ? 매칭되는가
-        // 음료만 주문했는가
+    public static Map<Menu, Integer> validate(String input) {
+        menuInventory = new EnumMap<>(Menu.class);
+        List<String> splitedMenu = splitByComma(input);
+        parseMenu(splitedMenu);
+        checkDuplicated(splitedMenu);
+        checkTotalEA();
+        checkMainMenu();
         return menuInventory;
+        // 테스트 위해 나누기
     }
 
     private static List<String> splitByComma(String input) {
