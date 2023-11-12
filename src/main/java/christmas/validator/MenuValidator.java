@@ -46,6 +46,14 @@ public class MenuValidator {
         }
     }
 
+    private static List<String> splitByHypen(String menu) {
+        try {
+            return List.of(menu.split("-"));
+        } catch (IllegalArgumentException illegalArgumentException) {
+            throw new IllegalArgumentException("하이픈으로 나뉘어지지 않음");
+        }
+    }
+
 
     }
 }
