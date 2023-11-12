@@ -1,13 +1,14 @@
 package christmas.controller;
 
+import christmas.domain.constants.Menu;
 import christmas.ui.InputView;
 import christmas.ui.OutputView;
 
-import java.util.HashMap;
+import java.util.Map;
 
 public class EventController {
     private int day;
-    private HashMap<String, Integer> menuInventory;
+    private Map<Menu, Integer> menuInventory;
     private final InputView inputView;
     private final OutputView outputView;
 
@@ -20,6 +21,7 @@ public class EventController {
         outputView.printIntro();
         input();
         displayBenefits();
+
     }
 
     private void input() {
@@ -29,6 +31,6 @@ public class EventController {
 
     private void displayBenefits() {
         outputView.printEventDate(day);
-
+        outputView.printMenu(menuInventory);
     }
 }
