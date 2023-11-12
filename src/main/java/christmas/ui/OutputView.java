@@ -1,5 +1,9 @@
 package christmas.ui;
 
+import christmas.domain.constants.Menu;
+
+import java.util.Map;
+
 public class OutputView {
     public void printIntro() {
         System.out.println("안녕하세요! 우테코 식당 12월 이벤트 플래너입니다.");
@@ -11,9 +15,12 @@ public class OutputView {
         // ...
     }
 
-    public void printMenu() {
+    public void printMenu(Map<Menu, Integer> menuInventory) {
         System.out.println("<주문 메뉴>");
-        // ...
+        for (Map.Entry<Menu, Integer> menu : menuInventory.entrySet()) {
+            System.out.printf("%s %d개\n", menu.getKey().getName(), menu.getValue());
+        }
+        System.out.println();
     }
 
     public void printTotalRawPrice() {
