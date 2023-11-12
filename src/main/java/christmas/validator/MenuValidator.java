@@ -37,6 +37,7 @@ public class MenuValidator {
             List<String> menuInfo = splitByHypen(menu);
             makeMenuInventory(menuInfo);
         }
+    }
 
     private static int parseInt(String number) {
         try {
@@ -52,6 +53,13 @@ public class MenuValidator {
         } catch (IllegalArgumentException illegalArgumentException) {
             throw new IllegalArgumentException("하이픈으로 나뉘어지지 않음");
         }
+    }
+
+    private static void makeMenuInventory(List<String> menuInfo) {
+        int menuEA = parseInt(menuInfo.get(1));
+        checkEA(menuEA);
+        Menu menu = checkMenuExistence(menuInfo.get(0));
+        menuInventory.put(menu, menuEA);
     }
 
     private static void checkDuplicated(List<String> splitedMenu) {
