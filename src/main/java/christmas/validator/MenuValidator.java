@@ -79,5 +79,12 @@ public class MenuValidator {
         checkEA(count);
     }
 
+    private static void checkMainMenu() {
+        for (Menu menu : menuInventory.keySet()) {
+            if (!menu.getCategory().equals(DRINK)) {
+                return;
+            }
+        }
+        throw new IllegalArgumentException("음료만 주문 시, 주문할 수 없습니다.");
     }
 }
