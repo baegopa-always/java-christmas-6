@@ -38,5 +38,14 @@ public class MenuValidator {
             makeMenuInventory(menuInfo);
         }
 
+    private static int parseInt(String number) {
+        try {
+            return Integer.parseInt(number);
+        } catch (IllegalArgumentException illegalArgumentException) {
+            throw new IllegalArgumentException("숫자가 아님");
+        }
+    }
+
+
     }
 }
