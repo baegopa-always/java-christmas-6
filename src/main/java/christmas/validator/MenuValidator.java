@@ -23,8 +23,10 @@ public class MenuValidator {
 
     private static List<String> splitByComma(String input) {
         try {
-            List<String> splitedMenu = List.of(input.split(","));
-            return splitedMenu;
+            if (!input.contains(",")) {
+                throw new IllegalArgumentException();
+            }
+            return List.of(input.split(","));
         } catch (IllegalArgumentException illegalArgumentException) {
             throw new IllegalArgumentException("컴마로 안나뉨");
         }
