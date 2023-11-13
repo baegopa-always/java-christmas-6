@@ -14,6 +14,7 @@ import static christmas.domain.constants.Constants.SPECIAL_DISCOUNT;
 import static christmas.domain.constants.Constants.GIFT_EVENT;
 import static christmas.domain.constants.Constants.SPECIAL_DAY;
 import static christmas.domain.constants.Constants.CHRISTMAS_DAY;
+import static christmas.domain.constants.Constants.MIN_PRICE_FOR_EVENT;
 import static christmas.domain.constants.MenuCategory.DESSERT;
 import static christmas.domain.constants.MenuCategory.MAINDISH;
 
@@ -47,6 +48,10 @@ public class EventDetails {
         return calculateTotalPrice() > MIN_PRICE_FOR_GIFT;
     }
 
+    public boolean checkEventOperation() {
+        return calculateTotalPrice() >= MIN_PRICE_FOR_EVENT;
+    }
+
     public int calculateTotalBenefitPrice() {
         return benefits.values().stream().mapToInt(Integer::intValue).sum();
     }
@@ -57,15 +62,17 @@ public class EventDetails {
 
     public Map<String, Integer> detailBenefits() {
         benefits = new HashMap<>();
-        addBenefit(CHRISTMAS_DISCOUNT, calculateDDayDiscount());
-        if (dayOfWeek >= 0 && dayOfWeek <= 4) {
-            addBenefit(WEEKDAY_DISCOUNT, calculateWeekdayDiscount());
+        if (checkEventOperation()) {
+            addBenefit(CHRISTMAS_DISCOUNT, calculateDDayDiscount());
+            if (dayOfWeek >= 0 && dayOfWeek <= 4) {
+                addBenefit(WEEKDAY_DISCOUNT, calculateWeekdayDiscount());
+            }
+            if (dayOfWeek == 5 || dayOfWeek == 6) {
+                addBenefit(WEEKEND_DISCOUNT, calculateWeekendDiscount());
+            }
+            addBenefit(SPECIAL_DISCOUNT, calculateSpecialDiscount());
+            addBenefit(GIFT_EVENT, calculateGift());
         }
-        if (dayOfWeek == 5 || dayOfWeek == 6) {
-            addBenefit(WEEKEND_DISCOUNT, calculateWeekendDiscount());
-        }
-        addBenefit(SPECIAL_DISCOUNT, calculateSpecialDiscount());
-        addBenefit(GIFT_EVENT, calculateGift());
         return benefits;
     }
 
