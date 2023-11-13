@@ -83,4 +83,10 @@ public class EventDetails {
         return 0;
     }
 
+    private void addBenefit(String Benefit, int price) {
+        if (price > 0) {
+            benefits.put(Benefit, price);
+        }
+    }
+
 }
