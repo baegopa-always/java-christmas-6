@@ -126,7 +126,7 @@ public class EventDetails {
     public EventBadge getBadge() {
         int price = calculateTotalBenefitPrice();
         for (EventBadge badge : EventBadge.values()) {
-            if (badge.getPrice() >= price) {
+            if (badge.getPrice() <= price) {
                 return badge;
             }
         }
