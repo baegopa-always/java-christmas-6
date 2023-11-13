@@ -41,6 +41,10 @@ public class EventDetails {
         return benefits.values().stream().mapToInt(Integer::intValue).sum();
     }
 
+    public int calculateExpectedTotalPrice() {
+        return calculateTotalPrice() + calculateGift() - calculateTotalBenefitPrice();
+    }
+
     public Map<String, Integer> detailBenefits() {
         benefits = new HashMap<>();
         addBenefit(CHRISTMAS_DISCOUNT, calculateDDayDiscount());
