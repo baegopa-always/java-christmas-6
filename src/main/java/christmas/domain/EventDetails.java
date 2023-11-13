@@ -25,14 +25,13 @@ import java.util.Map;
 public class EventDetails {
     private final Map<Menu, Integer> menuInventory;
     private final int day;
-    private final LocalDate date;
     private final int dayOfWeek;
     private Map<String, Integer> benefits;
 
     public EventDetails(Map<Menu, Integer> menuInventory, int day) {
         this.menuInventory = menuInventory;
         this.day = day;
-        this.date = LocalDate.of(THIS_YEAR, DECEMBER, day);
+        LocalDate date = LocalDate.of(THIS_YEAR, DECEMBER, day);
         this.dayOfWeek = date.getDayOfWeek().getValue() / 7;
     }
 
