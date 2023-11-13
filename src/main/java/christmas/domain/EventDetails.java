@@ -8,6 +8,8 @@ import static christmas.domain.constants.Constants.THIS_YEAR;
 import static christmas.domain.constants.Constants.DECEMBER;
 import static christmas.domain.constants.Constants.MIN_PRICE_FOR_GIFT;
 import static christmas.domain.constants.Constants.CHRISTMAS_DAY;
+import static christmas.domain.constants.MenuCategory.DESSERT;
+import static christmas.domain.constants.MenuCategory.MAINDISH;
 
 import java.time.LocalDate;
 import java.util.HashMap;
@@ -55,6 +57,16 @@ public class EventDetails {
         int discount = 0;
         for (Map.Entry<Menu, Integer> menu : menuInventory.entrySet()) {
             if (menu.getKey().getCategory().equals(DESSERT)) {
+                discount += menu.getValue() * THIS_YEAR;
+            }
+        }
+        return discount;
+    }
+
+    private int calculateWeekendDiscount() {
+        int discount = 0;
+        for (Map.Entry<Menu, Integer> menu : menuInventory.entrySet()) {
+            if (menu.getKey().getCategory().equals(MAINDISH)) {
                 discount += menu.getValue() * THIS_YEAR;
             }
         }
