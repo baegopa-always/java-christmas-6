@@ -73,4 +73,11 @@ public class EventDetails {
         return discount;
     }
 
+    private int calculateSpecialDiscount() {
+        if (SPECIAL_DAY.contains(day)) {
+            return SPECIAL_DISCOUNT;
+        }
+        return 0;
+    }
+
 }
