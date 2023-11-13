@@ -1,5 +1,6 @@
 package christmas.controller;
 
+import christmas.domain.EventDetails;
 import christmas.domain.constants.Menu;
 import christmas.ui.InputView;
 import christmas.ui.OutputView;
@@ -20,8 +21,8 @@ public class EventController {
     public void run() {
         outputView.printIntro();
         input();
-        displayBenefits();
-
+        EventDetails eventDetails = new EventDetails(menuInventory, day);
+        displayBenefits(eventDetails);
     }
 
     private void input() {
@@ -29,8 +30,14 @@ public class EventController {
         this.menuInventory = inputView.readMenu();
     }
 
-    private void displayBenefits() {
+    private void displayBenefits(EventDetails eventDetails) {
         outputView.printEventDate(day);
         outputView.printMenu(menuInventory);
+        outputView.printTotalRawPrice(eventDetails.calculateTotalPrice());
+        outputView.printGiftMenu(eventDetails.hasGift());
+        outputView.printBenefits(eventDetails.detailBenefits());
+        outputView.printTotalBenefitPrice(eventDetails.calculateTotalBenefitPrice());
+        outputView.printTotalDiscountedPrice(eventDetails.calculateExpectedTotalPrice());
+        outputView.printEventBadge(eventDetails.getBadge());
     }
 }
