@@ -3,11 +3,7 @@ package christmas.domain;
 import christmas.domain.constants.EventBadge;
 import christmas.domain.constants.Menu;
 
-import static christmas.domain.constants.Constants.SPECIAL_DAY;
-import static christmas.domain.constants.Constants.THIS_YEAR;
-import static christmas.domain.constants.Constants.DECEMBER;
-import static christmas.domain.constants.Constants.MIN_PRICE_FOR_GIFT;
-import static christmas.domain.constants.Constants.CHRISTMAS_DAY;
+import static christmas.domain.constants.Constants.*;
 import static christmas.domain.constants.MenuCategory.DESSERT;
 import static christmas.domain.constants.MenuCategory.MAINDISH;
 
@@ -76,6 +72,13 @@ public class EventDetails {
     private int calculateSpecialDiscount() {
         if (SPECIAL_DAY.contains(day)) {
             return SPECIAL_DISCOUNT;
+        }
+        return 0;
+    }
+
+    private int calculateGift() {
+        if (hasGift()) {
+            return Menu.CHAMPAGNE.getPrice();
         }
         return 0;
     }
