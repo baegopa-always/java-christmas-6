@@ -22,6 +22,7 @@ public class EventController {
         outputView.printIntro();
         input();
         EventDetails eventDetails = new EventDetails(menuInventory, day);
+        eventDetails.checkEventOperation();
         displayBenefits(eventDetails);
     }
 
