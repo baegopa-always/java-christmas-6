@@ -1,6 +1,9 @@
 package christmas.validator;
 
 import static christmas.domain.constants.ErrorMessage.DATE_ERROR;
+import static christmas.domain.constants.Constants.MIN_DAY;
+import static christmas.domain.constants.Constants.MAX_DAY;
+
 
 public class DateValidator {
     public static int validate(String input) {
@@ -17,7 +20,7 @@ public class DateValidator {
     }
 
     private static int correctDay(int day) {
-        if (day < 1 || day > 31) {
+        if (day < MIN_DAY || day > MAX_DAY) {
             throw new IllegalArgumentException(DATE_ERROR);
         }
         return day;
