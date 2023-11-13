@@ -37,6 +37,10 @@ public class EventDetails {
         return calculateTotalPrice() > MIN_PRICE_FOR_GIFT;
     }
 
+    public int calculateTotalBenefitPrice() {
+        return benefits.values().stream().mapToInt(Integer::intValue).sum();
+    }
+
     public Map<String, Integer> detailBenefits() {
         benefits = new HashMap<>();
         addBenefit(CHRISTMAS_DISCOUNT, calculateDDayDiscount());
@@ -80,7 +84,7 @@ public class EventDetails {
 
     private int calculateSpecialDiscount() {
         if (SPECIAL_DAY.contains(day)) {
-            return SPECIAL_DISCOUNT;
+            return SPECIAL_DISCOUNT_PRICE;
         }
         return 0;
     }
