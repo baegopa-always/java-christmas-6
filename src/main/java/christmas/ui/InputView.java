@@ -5,10 +5,10 @@ import christmas.domain.constants.Menu;
 import christmas.validator.DateValidator;
 import christmas.validator.MenuValidator;
 
-import static christmas.domain.constants.Message.INTRO;
-import static christmas.domain.constants.Message.MENU_GUIDE;
-
 import java.util.Map;
+
+import static christmas.domain.constants.Message.READ_DATE;
+import static christmas.domain.constants.Message.READ_MENU;
 
 public class InputView {
     public InputView() {
@@ -16,7 +16,7 @@ public class InputView {
 
     public int readDate() {
         try {
-            System.out.println(INTRO);
+            System.out.println(READ_DATE);
             String input = Console.readLine();
             return DateValidator.validate(input);
         } catch (IllegalArgumentException illegalArgumentException) {
@@ -27,7 +27,7 @@ public class InputView {
 
     public Map<Menu, Integer> readMenu() {
         try {
-            System.out.println(MENU_GUIDE);
+            System.out.println(READ_MENU);
             String input = Console.readLine();
             return MenuValidator.validate(input);
         } catch (IllegalArgumentException illegalArgumentException) {
