@@ -80,9 +80,9 @@ public class OutputView {
         System.out.println();
     }
 
-    public void printEventBadge() {
-        System.out.println("<12월 이벤트 배지>");
-        // ...
+    public void printEventBadge(EventBadge badge) {
+        System.out.println(DECEMBER_BADGE);
+        System.out.println(badge.getName());
     }
 
 }
