@@ -39,5 +39,17 @@ public class EventDetails {
         return calculateTotalPrice() > MIN_PRICE_FOR_GIFT;
     }
 
+    public Map<String, Integer> detailBenefits() {
+        benefits = new HashMap<>();
+        return benefits;
+    }
+
+    private int calculateDDayDiscount() {
+        if (day <= CHRISTMAS_DAY) {
+            return (day + 9) * 100;
+        }
+        return 0;
+    }
+
 
 }
