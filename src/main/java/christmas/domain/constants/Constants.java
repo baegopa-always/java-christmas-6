@@ -1,10 +1,16 @@
 package christmas.domain.constants;
 
+import java.util.List;
+
 public class Constants {
-    public static final String DRINK = "Drink";
-    public static final String APPETIZER = "Appetizer";
-    public static final String MAIN_DISH = "MainDish";
-    public static final String DESSERT = "Dessert";
     public static final int MIN_EA = 1;
     public static final int MAX_EA = 20;
+    public static final int MIN_DAY = 1;
+    public static final int MAX_DAY = 31;
+    public static final List<Integer> SPECIAL_DAY = List.of(3, 10, 17, 24, 25, 31);
+    public static final int THIS_YEAR = 2023;
+    public static final int DECEMBER = 12;
+    public static final int MIN_PRICE_FOR_GIFT = 120_000;
+    public static final int CHRISTMAS_DAY = 25;
+
 }
