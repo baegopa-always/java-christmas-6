@@ -39,6 +39,15 @@ public class EventDetails {
 
     public Map<String, Integer> detailBenefits() {
         benefits = new HashMap<>();
+        addBenefit(CHRISTMAS_DISCOUNT, calculateDDayDiscount());
+        if (dayOfWeek >= 0 && dayOfWeek <= 4) {
+            addBenefit(WEEKDAY_DISCOUNT, calculateWeekdayDiscount());
+        }
+        if (dayOfWeek == 5 || dayOfWeek == 6) {
+            addBenefit(WEEKEND_DISCOUNT, calculateWeekendDiscount());
+        }
+        addBenefit(SPECIAL_DISCOUNT, calculateSpecialDiscount());
+        addBenefit(GIFT_EVENT, calculateGift());
         return benefits;
     }
 
