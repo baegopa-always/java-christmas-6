@@ -13,6 +13,7 @@ public class Constants {
     public static final int THIS_YEAR = 2023;
     public static final int DECEMBER = 12;
     public static final int MIN_PRICE_FOR_GIFT = 120_000;
+    public static final int MIN_PRICE_FOR_EVENT = 10_000;
     public static final int CHRISTMAS_DAY = 25;
     public static final int SPECIAL_DISCOUNT_PRICE = 1000;
     public static final String CHRISTMAS_DISCOUNT = "크리스마스 디데이 할인";
