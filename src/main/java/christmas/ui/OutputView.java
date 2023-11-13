@@ -74,9 +74,10 @@ public class OutputView {
         System.out.println();
     }
 
-    public void printTotalDiscountedPrice() {
-        System.out.println("<할인 후 예상 결제 금액>");
-        // ...
+    public void printTotalDiscountedPrice(int price) {
+        System.out.println(TOTAL_EXPECTED_PRICE);
+        System.out.printf(PRICE, PriceFormatter.format(price));
+        System.out.println();
     }
 
     public void printEventBadge() {
