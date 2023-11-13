@@ -35,5 +35,9 @@ public class EventDetails {
         return price;
     }
 
+    public boolean hasGift() {
+        return calculateTotalPrice() > MIN_PRICE_FOR_GIFT;
+    }
+
 
 }
