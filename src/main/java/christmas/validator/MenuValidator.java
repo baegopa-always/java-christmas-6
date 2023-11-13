@@ -28,6 +28,12 @@ public class MenuValidator {
     }
 
     private static List<String> splitByComma(String input) {
+        int count = (int) input.chars()
+                .filter(comma -> comma == ',')
+                .count() + 1;
+        if (count != input.split(",").length) {
+            throw new IllegalArgumentException(MENU_FORM_ERROR);
+        }
         return List.of(input.split(","));
     }
 
