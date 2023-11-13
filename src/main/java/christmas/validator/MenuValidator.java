@@ -2,9 +2,12 @@ package christmas.validator;
 
 import christmas.domain.constants.Menu;
 
-import static christmas.domain.constants.Constants.DRINK;
+import static christmas.domain.constants.Constants.TWO;
 import static christmas.domain.constants.Constants.MIN_EA;
 import static christmas.domain.constants.Constants.MAX_EA;
+import static christmas.domain.constants.MenuCategory.DRINK;
+import static christmas.domain.constants.ErrorMessage.MAIN_MENU_ERROR;
+import static christmas.domain.constants.ErrorMessage.MENU_FORM_ERROR;
 
 import java.util.EnumMap;
 import java.util.List;
@@ -25,14 +28,7 @@ public class MenuValidator {
     }
 
     private static List<String> splitByComma(String input) {
-        try {
-            if (!input.contains(",")) {
-                throw new IllegalArgumentException();
-            }
-            return List.of(input.split(","));
-        } catch (IllegalArgumentException illegalArgumentException) {
-            throw new IllegalArgumentException("컴마로 안나뉨");
-        }
+        return List.of(input.split(","));
     }
 
     private static void parseMenu(List<String> splitedMenu) {
@@ -46,16 +42,15 @@ public class MenuValidator {
         try {
             return Integer.parseInt(number);
         } catch (IllegalArgumentException illegalArgumentException) {
-            throw new IllegalArgumentException("숫자가 아님");
+            throw new IllegalArgumentException(MENU_FORM_ERROR);
         }
     }
 
     private static List<String> splitByHypen(String menu) {
-        try {
-            return List.of(menu.split("-"));
-        } catch (IllegalArgumentException illegalArgumentException) {
-            throw new IllegalArgumentException("하이픈으로 나뉘어지지 않음");
+        if (menu.split("-").length != TWO) {
+            throw new IllegalArgumentException(MENU_FORM_ERROR);
         }
+        return List.of(menu.split("-"));
     }
 
     private static void makeMenuInventory(List<String> menuInfo) {
@@ -67,7 +62,7 @@ public class MenuValidator {
 
     private static void checkDuplicated(List<String> splitedMenu) {
         if (menuInventory.size() != splitedMenu.size()) {
-            throw new IllegalArgumentException("중복된 메뉴 존재");
+            throw new IllegalArgumentException(MENU_FORM_ERROR);
         }
     }
 
@@ -77,12 +72,12 @@ public class MenuValidator {
                 return menu;
             }
         }
-        throw new IllegalArgumentException("존재하지 않는 메뉴");
+        throw new IllegalArgumentException(MENU_FORM_ERROR);
     }
 
     private static void checkEA(int menuEA) {
         if (menuEA < MIN_EA || menuEA > MAX_EA) {
-            throw new IllegalArgumentException("[ERROR] 유효하지 않은 주문입니다. 다시 입력해 주세요.");
+            throw new IllegalArgumentException(MENU_FORM_ERROR);
         }
     }
 
@@ -101,6 +96,6 @@ public class MenuValidator {
                 return;
             }
         }
-        throw new IllegalArgumentException("음료만 주문 시, 주문할 수 없습니다.");
+        throw new IllegalArgumentException(MAIN_MENU_ERROR);
     }
 }
