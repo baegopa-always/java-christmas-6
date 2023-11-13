@@ -52,8 +52,9 @@ public class OutputView {
             System.out.printf(MENU_INFO, Menu.CHAMPAGNE.getName(), ONE);
         }
         if (!hasGift) {
-            System.out.println(NONE);
+            System.out.print(NONE);
         }
+        System.out.println();
     }
 
     public void printBenefits(Map<String, Integer> benefits) {
