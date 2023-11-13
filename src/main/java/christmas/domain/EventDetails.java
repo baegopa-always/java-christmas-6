@@ -51,5 +51,14 @@ public class EventDetails {
         return 0;
     }
 
+    private int calculateWeekdayDiscount() {
+        int discount = 0;
+        for (Map.Entry<Menu, Integer> menu : menuInventory.entrySet()) {
+            if (menu.getKey().getCategory().equals(DESSERT)) {
+                discount += menu.getValue() * THIS_YEAR;
+            }
+        }
+        return discount;
+    }
 
 }
