@@ -5,6 +5,9 @@ import christmas.domain.constants.Menu;
 import christmas.validator.DateValidator;
 import christmas.validator.MenuValidator;
 
+import static christmas.domain.constants.Message.INTRO;
+import static christmas.domain.constants.Message.MENU_GUIDE;
+
 import java.util.Map;
 
 public class InputView {
@@ -13,7 +16,7 @@ public class InputView {
 
     public int readDate() {
         try {
-            System.out.println("12월 중 식당 예상 방문 날짜는 언제인가요? (숫자만 입력해 주세요!)");
+            System.out.println(INTRO);
             String input = Console.readLine();
             return DateValidator.validate(input);
         } catch (IllegalArgumentException illegalArgumentException) {
@@ -24,7 +27,7 @@ public class InputView {
 
     public Map<Menu, Integer> readMenu() {
         try {
-            System.out.println("주문하실 메뉴를 메뉴와 개수를 알려 주세요. (e.g. 해산물파스타-2,레드와인-1,초코케이크-1)");
+            System.out.println(MENU_GUIDE);
             String input = Console.readLine();
             return MenuValidator.validate(input);
         } catch (IllegalArgumentException illegalArgumentException) {
