@@ -56,9 +56,16 @@ public class OutputView {
         }
     }
 
-    public void printBenefits() {
-        System.out.println("<혜택 내역>");
-        // ...
+    public void printBenefits(Map<String, Integer> benefits) {
+        System.out.println(BENEFIT_DETAILS);
+        if (benefits.isEmpty()) {
+            System.out.println(NONE);
+            return;
+        }
+        for (Map.Entry<String, Integer> benefit : benefits.entrySet()) {
+            System.out.printf(BENEFIT, benefit.getKey(), PriceFormatter.format(-benefit.getValue()));
+        }
+        System.out.println();
     }
 
     public void printTotalBenefitPrice() {
