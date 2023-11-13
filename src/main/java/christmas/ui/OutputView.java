@@ -46,9 +46,14 @@ public class OutputView {
         System.out.println();
     }
 
-    public void printGiftMenu() {
-        System.out.println("<증정 메뉴>");
-        // ...
+    public void printGiftMenu(boolean hasGift) {
+        System.out.println(GIFT_MENU);
+        if (hasGift) {
+            System.out.printf(MENU_INFO, Menu.CHAMPAGNE.getName(), ONE);
+        }
+        if (!hasGift) {
+            System.out.println(NONE);
+        }
     }
 
     public void printBenefits() {
