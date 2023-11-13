@@ -68,9 +68,10 @@ public class OutputView {
         System.out.println();
     }
 
-    public void printTotalBenefitPrice() {
-        System.out.println("<총헤택 금액>");
-        // ...
+    public void printTotalBenefitPrice(int price) {
+        System.out.println(TOTAL_BENEFIT_PRICE);
+        System.out.printf(PRICE, PriceFormatter.format(-price));
+        System.out.println();
     }
 
     public void printTotalDiscountedPrice() {
