@@ -32,7 +32,7 @@ public class EventDetails {
         this.menuInventory = menuInventory;
         this.day = day;
         LocalDate date = LocalDate.of(THIS_YEAR, DECEMBER, day);
-        this.dayOfWeek = date.getDayOfWeek().getValue() / 7;
+        this.dayOfWeek = date.getDayOfWeek().getValue() % 7;
     }
 
     public int calculateTotalPrice() {
