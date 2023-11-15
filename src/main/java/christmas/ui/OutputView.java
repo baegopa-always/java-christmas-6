@@ -14,7 +14,7 @@ import static christmas.domain.constants.Message.PRICE;
 import static christmas.domain.constants.Message.TOTAL_EXPECTED_PRICE;
 import static christmas.domain.constants.Message.DECEMBER_BADGE;
 
-import christmas.domain.PriceFormatter;
+import christmas.domain.Converter;
 import christmas.domain.constants.EventBadge;
 import christmas.domain.constants.Menu;
 
@@ -43,7 +43,7 @@ public class OutputView {
     }
 
     public void printTotalRawPrice(int price) {
-        System.out.printf(TOTAL_RAW_PRICE, PriceFormatter.format(price));
+        System.out.printf(TOTAL_RAW_PRICE, Converter.formatPrice(price));
         System.out.println();
     }
 
@@ -65,20 +65,20 @@ public class OutputView {
             return;
         }
         for (Map.Entry<String, Integer> benefit : benefits.entrySet()) {
-            System.out.printf(BENEFIT, benefit.getKey(), PriceFormatter.format(-benefit.getValue()));
+            System.out.printf(BENEFIT, benefit.getKey(), Converter.formatPrice(-benefit.getValue()));
         }
         System.out.println();
     }
 
     public void printTotalBenefitPrice(int price) {
         System.out.println(TOTAL_BENEFIT_PRICE);
-        System.out.printf(PRICE, PriceFormatter.format(-price));
+        System.out.printf(PRICE, Converter.formatPrice(-price));
         System.out.println();
     }
 
     public void printTotalDiscountedPrice(int price) {
         System.out.println(TOTAL_EXPECTED_PRICE);
-        System.out.printf(PRICE, PriceFormatter.format(price));
+        System.out.printf(PRICE, Converter.formatPrice(price));
         System.out.println();
     }
 
