@@ -22,7 +22,6 @@ public class EventController {
         outputView.printIntro();
         input();
         EventDetails eventDetails = new EventDetails(menuInventory, day);
-        eventDetails.checkEventOperation();
         displayBenefits(eventDetails);
     }
 
@@ -34,11 +33,11 @@ public class EventController {
     private void displayBenefits(EventDetails eventDetails) {
         outputView.printEventDate(day);
         outputView.printMenu(menuInventory);
-        outputView.printTotalRawPrice(eventDetails.calculateTotalPrice());
-        outputView.printGiftMenu(eventDetails.hasGift());
-        outputView.printBenefits(eventDetails.detailBenefits());
-        outputView.printTotalBenefitPrice(eventDetails.calculateTotalBenefitPrice());
-        outputView.printTotalDiscountedPrice(eventDetails.calculateExpectedTotalPrice());
+        outputView.printTotalRawPrice(eventDetails.getTotalPrice());
+        outputView.printGiftMenu(eventDetails.getGift());
+        outputView.printBenefits(eventDetails.getDetailBenefits());
+        outputView.printTotalBenefitPrice(eventDetails.getTotalBenefitPrice());
+        outputView.printTotalDiscountedPrice(eventDetails.getExpectedTotalPrice());
         outputView.printEventBadge(eventDetails.getBadge());
     }
 }
