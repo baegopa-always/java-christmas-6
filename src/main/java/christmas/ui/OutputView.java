@@ -14,8 +14,6 @@ import static christmas.domain.constants.Message.PRICE;
 import static christmas.domain.constants.Message.TOTAL_EXPECTED_PRICE;
 import static christmas.domain.constants.Message.DECEMBER_BADGE;
 
-import static christmas.domain.constants.Constants.ONE;
-
 import christmas.domain.PriceFormatter;
 import christmas.domain.constants.EventBadge;
 import christmas.domain.constants.Menu;
@@ -49,7 +47,7 @@ public class OutputView {
     public void printGiftMenu(boolean hasGift) {
         System.out.println(GIFT_MENU);
         if (hasGift) {
-            System.out.printf(MENU_INFO, Menu.CHAMPAGNE.getName(), ONE);
+            System.out.printf(MENU_INFO, Menu.CHAMPAGNE.getName(), 1);
         }
         if (!hasGift) {
             System.out.print(NONE);
