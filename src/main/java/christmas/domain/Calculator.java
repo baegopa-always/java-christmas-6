@@ -18,8 +18,13 @@ import static christmas.domain.constants.Constants.SPECIAL_DISCOUNT;
 import static christmas.domain.constants.Constants.GIFT_EVENT;
 import static christmas.domain.constants.Constants.SPECIAL_DISCOUNT_PRICE;
 import static christmas.domain.constants.Constants.SPECIAL_DAY;
+import static christmas.domain.constants.Constants.SUNDAY_NUM;
+import static christmas.domain.constants.Constants.THURSDAY_NUM;
+import static christmas.domain.constants.Constants.FRIDAY_NUM;
+import static christmas.domain.constants.Constants.SATURDAY_NUM;
 import static christmas.domain.constants.MenuCategory.DESSERT;
 import static christmas.domain.constants.MenuCategory.MAINDISH;
+
 
 public class Calculator {
     private final int dayOfWeek;
@@ -30,7 +35,7 @@ public class Calculator {
     public Calculator(Map<Menu, Integer> menuInventory, int day) {
         this.menuInventory = menuInventory;
         this.day = day;
-        this.dayOfWeek = DateFormatter.format(THIS_YEAR, DECEMBER, day);
+        this.dayOfWeek = Converter.formatDate(THIS_YEAR, DECEMBER, day);
         benefits = new HashMap<>();
     }
 
@@ -79,8 +84,8 @@ public class Calculator {
     private int calculateWeekdayDiscount() {
         int discount = 0;
         for (Map.Entry<Menu, Integer> menu : menuInventory.entrySet()) {
-            if (menu.getKey().getCategory().equals(DESSERT)) {
-                discount += menu.getValue() * THIS_YEAR;
+            if (isDessert(menu.getKey())) {
+                discount += calculateWeekDiscount(menu.getValue());
             }
         }
         return discount;
@@ -89,10 +94,9 @@ public class Calculator {
     private int calculateWeekendDiscount() {
         int discount = 0;
         for (Map.Entry<Menu, Integer> menu : menuInventory.entrySet()) {
-            if (menu.getKey().getCategory().equals(MAINDISH)) {
-                discount += menu.getValue() * THIS_YEAR;
+            if (isMainDish(menu.getKey())) {
+                discount += calculateWeekDiscount(menu.getValue());
             }
-
         }
         return discount;
     }
@@ -128,11 +132,23 @@ public class Calculator {
         return EventBadge.NONE;
     }
 
+    private int calculateWeekDiscount(int count) {
+        return count * THIS_YEAR;
+    }
+
     private boolean isWeekDay() {
-        return dayOfWeek >= 0 && dayOfWeek <= 4;
+        return dayOfWeek >= SUNDAY_NUM && dayOfWeek <= THURSDAY_NUM;
     }
 
     private boolean isWeekEnd() {
-        return dayOfWeek == 5 || dayOfWeek == 6;
+        return dayOfWeek == FRIDAY_NUM || dayOfWeek == SATURDAY_NUM;
+    }
+
+    private boolean isDessert(Menu menu) {
+        return menu.getCategory().equals(DESSERT);
+    }
+
+    private boolean isMainDish(Menu menu) {
+        return menu.getCategory().equals(MAINDISH);
     }
 }
