@@ -16,7 +16,7 @@ public class DateValidator {
 
     private static int parseToInt(String input) {
         try {
-            if (input.charAt(0) == '0') {
+            if (startWithZero(input)) {
                 throw new IllegalArgumentException();
             }
             return Integer.parseInt(input);
@@ -26,9 +26,25 @@ public class DateValidator {
     }
 
     private static int correctDay(int day) {
-        if (day < MIN_DAY || day > MAX_DAY) {
+        if (underMinDay(day) || overMaxDay(day)) {
             throw new IllegalArgumentException(DATE_ERROR);
         }
         return day;
+    }
+
+    private static boolean startWithZero(String input) {
+        try {
+            return input.charAt(0) == '0';
+        } catch (StringIndexOutOfBoundsException stringIndexOutOfBoundsException) {
+            throw new IllegalArgumentException();
+        }
+    }
+
+    private static boolean underMinDay(int day) {
+        return day < MIN_DAY;
+    }
+
+    private static boolean overMaxDay(int day) {
+        return day > MAX_DAY;
     }
 }
