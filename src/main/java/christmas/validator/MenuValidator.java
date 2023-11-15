@@ -2,7 +2,6 @@ package christmas.validator;
 
 import christmas.domain.constants.Menu;
 
-import static christmas.domain.constants.Constants.TWO;
 import static christmas.domain.constants.Constants.MIN_EA;
 import static christmas.domain.constants.Constants.MAX_EA;
 import static christmas.domain.constants.MenuCategory.DRINK;
@@ -24,7 +23,6 @@ public class MenuValidator {
         checkTotalEA();
         checkMainMenu();
         return menuInventory;
-        // 테스트 위해 나누기
     }
 
     private static List<String> splitByComma(String input) {
@@ -53,7 +51,7 @@ public class MenuValidator {
     }
 
     private static List<String> splitByHypen(String menu) {
-        if (menu.split("-").length != TWO) {
+        if (menu.split("-").length != 2) {
             throw new IllegalArgumentException(MENU_FORM_ERROR);
         }
         return List.of(menu.split("-"));
