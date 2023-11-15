@@ -52,7 +52,7 @@ public class Calculator {
     }
 
     public boolean hasGift() {
-        return calculateTotalPrice() > MIN_PRICE_FOR_GIFT;
+        return calculateTotalPrice() >= MIN_PRICE_FOR_GIFT;
     }
 
     public Map<String, Integer> createBenefitDetails() {
