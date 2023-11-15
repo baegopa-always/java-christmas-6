@@ -3,6 +3,7 @@ package christmas.domain;
 import christmas.domain.constants.EventBadge;
 import christmas.domain.constants.Menu;
 
+import java.util.HashMap;
 import java.util.Map;
 
 public class EventDetails {
@@ -17,6 +18,7 @@ public class EventDetails {
 
     public EventDetails(Map<Menu, Integer> menuInventory, int day) {
         this.calculator = new Calculator(menuInventory, day);
+        benefits = new HashMap<>();
         setDetails();
     }
 
