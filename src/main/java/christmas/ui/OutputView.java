@@ -23,6 +23,9 @@ import java.util.Map;
 
 
 public class OutputView {
+    public OutputView() {
+    }
+
     public void printIntro() {
         System.out.println(INTRO);
     }

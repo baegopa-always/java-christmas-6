@@ -6,6 +6,9 @@ import static christmas.domain.constants.Constants.MAX_DAY;
 
 
 public class DateValidator {
+    public DateValidator() {
+    }
+
     public static int validate(String input) {
         int day = parseToInt(input);
         return correctDay(day);

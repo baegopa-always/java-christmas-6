@@ -13,6 +13,9 @@ import java.util.List;
 import java.util.Map;
 
 public class MenuValidator {
+    public MenuValidator() {
+    }
+
     private static Map<Menu, Integer> menuInventory;
 
     public static Map<Menu, Integer> validate(String input) {
