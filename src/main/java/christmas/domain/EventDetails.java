@@ -3,132 +3,84 @@ package christmas.domain;
 import christmas.domain.constants.EventBadge;
 import christmas.domain.constants.Menu;
 
-import static christmas.domain.constants.Constants.SPECIAL_DISCOUNT_PRICE;
-import static christmas.domain.constants.Constants.THIS_YEAR;
-import static christmas.domain.constants.Constants.DECEMBER;
-import static christmas.domain.constants.Constants.MIN_PRICE_FOR_GIFT;
-import static christmas.domain.constants.Constants.CHRISTMAS_DISCOUNT;
-import static christmas.domain.constants.Constants.WEEKDAY_DISCOUNT;
-import static christmas.domain.constants.Constants.WEEKEND_DISCOUNT;
-import static christmas.domain.constants.Constants.SPECIAL_DISCOUNT;
-import static christmas.domain.constants.Constants.GIFT_EVENT;
-import static christmas.domain.constants.Constants.SPECIAL_DAY;
-import static christmas.domain.constants.Constants.CHRISTMAS_DAY;
-import static christmas.domain.constants.Constants.MIN_PRICE_FOR_EVENT;
-import static christmas.domain.constants.MenuCategory.DESSERT;
-import static christmas.domain.constants.MenuCategory.MAINDISH;
-
-import java.time.LocalDate;
-import java.util.HashMap;
 import java.util.Map;
 
 public class EventDetails {
-    private final Map<Menu, Integer> menuInventory;
-    private final int day;
-    private final int dayOfWeek;
+    private final Calculator calculator;
     private Map<String, Integer> benefits;
+    private int totalPrice;
+    private int totalBenefitPrice;
+    private int expectedTotalPrice;
+    private boolean giftFlag;
+    private boolean eventOperation;
+    private EventBadge badge;
 
     public EventDetails(Map<Menu, Integer> menuInventory, int day) {
-        this.menuInventory = menuInventory;
-        this.day = day;
-        LocalDate date = LocalDate.of(THIS_YEAR, DECEMBER, day);
-        this.dayOfWeek = date.getDayOfWeek().getValue() % 7;
+        this.calculator = new Calculator(menuInventory, day);
+        setDetails();
     }
 
-    public int calculateTotalPrice() {
-        int price = 0;
-        for (Map.Entry<Menu, Integer> menu : menuInventory.entrySet()) {
-            price += (menu.getKey().getPrice() * menu.getValue());
-        }
-        return price;
+    private void setDetails() {
+        setTotalPrice();
+        setEventOperation();
+        setGift();
+        setDetailBenefits();
+        setTotalBenefitPrice();
+        setExpectedTotalPrice();
+        setBadge();
     }
 
-    public boolean hasGift() {
-        return calculateTotalPrice() > MIN_PRICE_FOR_GIFT;
+    public int getTotalPrice() {
+        return totalPrice;
     }
 
-    public boolean checkEventOperation() {
-        return calculateTotalPrice() >= MIN_PRICE_FOR_EVENT;
+    private void setTotalPrice() {
+        totalPrice = calculator.calculateTotalPrice();
     }
 
-    public int calculateTotalBenefitPrice() {
-        return benefits.values().stream().mapToInt(Integer::intValue).sum();
+    private void setEventOperation() {
+        eventOperation = calculator.checkEventOperation();
     }
 
-    public int calculateExpectedTotalPrice() {
-        return calculateTotalPrice() + calculateGift() - calculateTotalBenefitPrice();
+    public boolean getGift() {
+        return giftFlag;
     }
 
-    public Map<String, Integer> detailBenefits() {
-        benefits = new HashMap<>();
-        if (checkEventOperation()) {
-            addBenefit(CHRISTMAS_DISCOUNT, calculateDDayDiscount());
-            if (dayOfWeek >= 0 && dayOfWeek <= 4) {
-                addBenefit(WEEKDAY_DISCOUNT, calculateWeekdayDiscount());
-            }
-            if (dayOfWeek == 5 || dayOfWeek == 6) {
-                addBenefit(WEEKEND_DISCOUNT, calculateWeekendDiscount());
-            }
-            addBenefit(SPECIAL_DISCOUNT, calculateSpecialDiscount());
-            addBenefit(GIFT_EVENT, calculateGift());
-        }
+    private void setGift() {
+        giftFlag = calculator.hasGift();
+    }
+
+    public Map<String, Integer> getDetailBenefits() {
         return benefits;
     }
 
-    private int calculateDDayDiscount() {
-        if (day <= CHRISTMAS_DAY) {
-            return (day + 9) * 100;
+    private void setDetailBenefits() {
+        if (eventOperation) {
+            benefits = calculator.createBenefitDetails();
         }
-        return 0;
     }
 
-    private int calculateWeekdayDiscount() {
-        int discount = 0;
-        for (Map.Entry<Menu, Integer> menu : menuInventory.entrySet()) {
-            if (menu.getKey().getCategory().equals(DESSERT)) {
-                discount += menu.getValue() * THIS_YEAR;
-            }
-        }
-        return discount;
+    public int getTotalBenefitPrice() {
+        return totalBenefitPrice;
     }
 
-    private int calculateWeekendDiscount() {
-        int discount = 0;
-        for (Map.Entry<Menu, Integer> menu : menuInventory.entrySet()) {
-            if (menu.getKey().getCategory().equals(MAINDISH)) {
-                discount += menu.getValue() * THIS_YEAR;
-            }
-        }
-        return discount;
+    private void setTotalBenefitPrice() {
+        totalBenefitPrice = calculator.calculateTotalBenefitPrice();
     }
 
-    private int calculateSpecialDiscount() {
-        if (SPECIAL_DAY.contains(day)) {
-            return SPECIAL_DISCOUNT_PRICE;
-        }
-        return 0;
+    public int getExpectedTotalPrice() {
+        return expectedTotalPrice;
     }
 
-    private int calculateGift() {
-        if (hasGift()) {
-            return Menu.CHAMPAGNE.getPrice();
-        }
-        return 0;
-    }
-
-    private void addBenefit(String Benefit, int price) {
-        if (price > 0) {
-            benefits.put(Benefit, price);
-        }
+    private void setExpectedTotalPrice() {
+        expectedTotalPrice = calculator.calculateExpectedTotalPrice();
     }
 
     public EventBadge getBadge() {
-        int price = calculateTotalBenefitPrice();
-        for (EventBadge badge : EventBadge.values()) {
-            if (badge.getPrice() <= price) {
-                return badge;
-            }
-        }
-        return EventBadge.NONE;
+        return badge;
+    }
+
+    private void setBadge() {
+        badge = calculator.checkBadge(totalBenefitPrice);
     }
 }
