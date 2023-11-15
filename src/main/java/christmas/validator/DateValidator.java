@@ -16,6 +16,9 @@ public class DateValidator {
 
     private static int parseToInt(String input) {
         try {
+            if (input.charAt(0) == '0') {
+                throw new IllegalArgumentException();
+            }
             return Integer.parseInt(input);
         } catch (IllegalArgumentException illegalArgumentException) {
             throw new IllegalArgumentException(DATE_ERROR);
