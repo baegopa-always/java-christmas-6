@@ -29,13 +29,10 @@ public class MenuValidator {
     }
 
     private static List<String> splitByComma(String input) {
-        int count = (int) input.chars()
-                .filter(comma -> comma == ',')
-                .count() + 1;
-        if (count != input.split(",").length) {
-            throw new IllegalArgumentException(MENU_FORM_ERROR);
+        if (correctItemCount(input)) {
+            return List.of(input.split(","));
         }
-        return List.of(input.split(","));
+        throw new IllegalArgumentException(MENU_FORM_ERROR);
     }
 
     private static void parseMenu(List<String> splitedMenu) {
@@ -54,16 +51,16 @@ public class MenuValidator {
     }
 
     private static List<String> splitByHypen(String menu) {
-        if (menu.split("-").length != 2) {
-            throw new IllegalArgumentException(MENU_FORM_ERROR);
+        if (correctMenu(menu)) {
+            return List.of(menu.split("-"));
         }
-        return List.of(menu.split("-"));
+        throw new IllegalArgumentException(MENU_FORM_ERROR);
     }
 
     private static void makeMenuInventory(List<String> menuInfo) {
-        int menuEA = parseInt(menuInfo.get(1));
+        int menuEA = countMenu(menuInfo);
         checkEA(menuEA);
-        Menu menu = checkMenuExistence(menuInfo.get(0));
+        Menu menu = checkMenuExistence(getMenuName(menuInfo));
         menuInventory.put(menu, menuEA);
     }
 
@@ -75,7 +72,7 @@ public class MenuValidator {
 
     private static Menu checkMenuExistence(String menuName) {
         for (Menu menu : Menu.values()) {
-            if (menu.getName().equals(menuName)) {
+            if (matchName(menu, menuName)) {
                 return menu;
             }
         }
@@ -83,26 +80,62 @@ public class MenuValidator {
     }
 
     private static void checkEA(int menuEA) {
-        if (menuEA < MIN_EA || menuEA > MAX_EA) {
+        if (underMinSize(menuEA) || overMaxSize(menuEA)) {
             throw new IllegalArgumentException(MENU_FORM_ERROR);
         }
     }
 
     private static void checkTotalEA() {
-        int count = menuInventory
+        int sum = menuInventory
                 .values()
                 .stream()
                 .mapToInt(Integer::intValue)
                 .sum();
-        checkEA(count);
+        checkEA(sum);
     }
 
     private static void checkMainMenu() {
         for (Menu menu : menuInventory.keySet()) {
-            if (!menu.getCategory().equals(DRINK)) {
+            if (hasMainMenu(menu)) {
                 return;
             }
         }
         throw new IllegalArgumentException(MAIN_MENU_ERROR);
     }
+
+    private static boolean correctItemCount(String input) {
+        int count = (int) input.chars()
+                .filter(comma -> comma == ',')
+                .count() + 1;
+        return count == input.split(",").length;
+    }
+
+    private static boolean correctMenu(String menu) {
+        return menu.split("-").length == 2;
+    }
+
+    private static boolean underMinSize(int EA) {
+        return EA < MIN_EA;
+    }
+
+    private static boolean overMaxSize(int EA) {
+        return EA > MAX_EA;
+    }
+
+    private static boolean hasMainMenu(Menu menu) {
+        return !menu.getCategory().equals(DRINK);
+    }
+
+    private static boolean matchName(Menu menu, String menuName) {
+        return menu.getName().equals(menuName);
+    }
+
+    private static int countMenu(List<String> menuInfo) {
+        return parseInt(menuInfo.get(1));
+    }
+
+    private static String getMenuName(List<String> menuInfo) {
+        return menuInfo.get(0);
+    }
+
 }
