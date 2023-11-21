@@ -56,6 +56,12 @@ public class DateValidatorTest {
         assertThatThrownBy(() -> DateValidator.validate("-25"))
                 .isInstanceOf(IllegalArgumentException.class);
     }
+    @DisplayName("날짜 입력에 1 이상 31 이하의 숫자가 아닐 경우 예외 발생4")
+    @Test
+    public void setDateByWrongNumber4() {
+        assertThatThrownBy(() -> DateValidator.validate("05"))
+                .isInstanceOf(IllegalArgumentException.class);
+    }
 
     @DisplayName("날짜 입력에 1 이상 31 이하의 숫자일 경우 유효1")
     @Test
