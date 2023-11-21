@@ -13,7 +13,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class ExpectedTotalPriceTest {
     private static final Map<Menu, Integer> MENU_INVENTORY_1 = Map.of(
-            Menu.STAKE, 20);
+            Menu.STEAK, 20);
     private static final Map<Menu, Integer> MENU_INVENTORY_2 = Map.of(
             Menu.ICE_CREAM, 10);
     private static final Map<Menu, Integer> MENU_INVENTORY_3 = Map.of(
